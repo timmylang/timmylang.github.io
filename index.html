@@ -6,13 +6,29 @@
   <script>
     function onGoogleSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
-      var welcomeMessage = document.getElementById('welcome-message');
-      var userAccount = document.getElementById('user-account');
-
-      welcomeMessage.textContent = "Вы авторизованы";
-      userAccount.textContent = "Учетная запись: " + profile.getEmail();
+      document.getElementById('user').innerText = 'Вы авторизованы как: ' + profile.getName();
+      document.getElementById('message').innerText = 'Вы авторизованы';
     }
   </script>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    #user, #message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
   <h1>Добро пожаловать</h1>
@@ -23,19 +39,11 @@
        data-client_id="358784983712-k4911e5m52gs6oujf6dv0hsuh8j764an.apps.googleusercontent.com"
        data-callback="onGoogleSignIn"
        data-auto_prompt="false"></div>
-  <div id="g_id_signin" style="display:none"></div>
+  <div id="g_id_signin"></div>
 
-  <!-- Отображаем информацию о пользователе после успешной авторизации -->
-  <p id="welcome-message"></p>
-  <p id="user-account"></p>
+  <div id="user"></div>
+  <div id="message"></div>
 
-  <!-- Инициализируем Google Sign-In -->
-  <script>
-    google.accounts.id.initialize({
-      client_id: '358784983712-k4911e5m52gs6oujf6dv0hsuh8j764an.apps.googleusercontent.com',
-      callback: onGoogleSignIn
-    });
-    google.accounts.id.prompt();
-  </script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </body>
 </html>
