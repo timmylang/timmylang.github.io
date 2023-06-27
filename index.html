@@ -2,9 +2,40 @@
 <html>
 <head>
   <title>Моя страничка</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+    function onGoogleSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      var welcomeMessage = document.getElementById('welcome-message');
+      var userAccount = document.getElementById('user-account');
+
+      welcomeMessage.textContent = "Вы авторизованы";
+      userAccount.textContent = "Учетная запись: " + profile.getEmail();
+    }
+  </script>
 </head>
 <body>
-  <h1>Привет, мир!</h1>
-  <p>Это моя первая страничка на GitHub.</p>
+  <h1>Добро пожаловать</h1>
+  <p>Тестирование функционала для создания сайта.</p>
+
+  <!-- Добавляем кнопку авторизации через Google -->
+  <div id="g_id_onload"
+       data-client_id="358784983712-k4911e5m52gs6oujf6dv0hsuh8j764an.apps.googleusercontent.com"
+       data-callback="onGoogleSignIn"
+       data-auto_prompt="false"></div>
+  <div id="g_id_signin" style="display:none"></div>
+
+  <!-- Отображаем информацию о пользователе после успешной авторизации -->
+  <p id="welcome-message"></p>
+  <p id="user-account"></p>
+
+  <!-- Инициализируем Google Sign-In -->
+  <script>
+    google.accounts.id.initialize({
+      client_id: 'YOUR_CLIENT_ID',
+      callback: onGoogleSignIn
+    });
+    google.accounts.id.prompt();
+  </script>
 </body>
 </html>
